@@ -3,7 +3,6 @@
 #include "../include/euler.hpp"
 
 int main() {
-    // Приклад використання
     size_t n = 5;
     std::vector<std::pair<size_t, size_t>> edges = {
         {0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 0}
@@ -12,7 +11,7 @@ int main() {
     auto result = euler_check_graph(n, edges);
     
     if (result.empty()) {
-        std::cout << "No Euler cycle or path found" << std::endl;
+        std::cout << "No Euler cycle or path found, or no edges in the graph" << std::endl;
     } else {
         std::cout << "Euler cycle/path: ";
         for (size_t v : result) {

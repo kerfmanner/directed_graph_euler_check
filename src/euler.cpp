@@ -2,7 +2,7 @@
 #include "../include/utils.hpp"
 
 std::vector<size_t> euler_check_graph(const size_t n, const std::vector<std::pair<size_t, size_t>>& edges){
-    // create adjacency list from edges list
+
     if (n == 0 || edges.empty()){
         return {};
     }
@@ -10,7 +10,9 @@ std::vector<size_t> euler_check_graph(const size_t n, const std::vector<std::pai
     GraphInfo graph_info;
     graph_info.in_deg.resize(n);
     graph_info.out_deg.resize(n);
-    
+
+    // create adjacency list from edges list
+    // and count in_deg and out_deg
     std::vector<std::vector<size_t>> adj(n);
     for (const auto& e : edges){
         adj[e.first].push_back(e.second);
@@ -18,10 +20,11 @@ std::vector<size_t> euler_check_graph(const size_t n, const std::vector<std::pai
         graph_info.in_deg[e.second]++;
     }
 
-    // calculate in-degrees and out-degrees
+    // look at in_deg and out_deg
     for (size_t i = 0; i < n; ++i){
         if (graph_info.out_deg[i] - graph_info.in_deg[i] == 1){
             graph_info.start_nodes++;
+            graph_info.starting_node = i;
         } else if (graph_info.in_deg[i] - graph_info.out_deg[i] == 1){
             graph_info.end_nodes++;
         } else if (graph_info.in_deg[i] != graph_info.out_deg[i]){
@@ -29,7 +32,7 @@ std::vector<size_t> euler_check_graph(const size_t n, const std::vector<std::pai
         }
     }
 
-    graph_info.connected = isStronglyConnected(adj, n);
+    graph_info.connected = isEulerConnected(adj);
 
     if (hasEulerCycle(graph_info)){
         return getEulerCycle(adj);
