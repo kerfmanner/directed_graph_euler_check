@@ -6,9 +6,7 @@
 #define HMW_3_UTILS_HPP
 
 #include <vector>
-#include <numeric>
 #include <algorithm>
-#include <cmath>
 #include <stack>
 
 struct GraphInfo {
